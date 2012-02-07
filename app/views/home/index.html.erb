@@ -1,0 +1,31 @@
+<% html_title "首页" -%>
+<div class="sidebar">
+   <div class="relatedLinksTitle">自我介绍</div>
+   <div class="relatedLinks"><%= @blog_info.signature %></div>
+   <div class="relatedLinksTitle">网页日历</div>
+   <div class="relatedLinks">
+      <%=  calendar_for "zh" %>
+   </div>
+   <div class="relatedLinksTitle">最新日志</div>
+   <div class="relatedLinks">
+     <%= show_latest_article @latest_articles, :controller=>"article", :action=>"show"%>
+   </div>
+   <div class="relatedLinksTitle">近期留言</div>
+   <div class="relatedLinks">
+     <%= show_latest_message @latest_messages %>
+   </div>
+   <div class="relatedLinksTitle">网站索引</div>
+   <div class="relatedLinks">这是一个内容模块</div>
+</div>
+<div id="content">
+  <% for article in @latest_articles -%>
+     <div class="story">
+       <div class="storyTitle"><%= article.title %></div>
+       <div class="storytext" style="font-size:13px;">
+           <%= truncate(article.content.gsub(/<.*?>/,''), :length=>300) %><br /><br />
+           <%= link_to "查看全文", {:controller=>'article', :action=>"show", :id=>article} %>
+       </div>
+       <div class="storyposted"><%= article.author.name %>&nbsp;&nbsp;发表于::<%= article.created_at.strftime("%Y-%m-%d %H:%M") %></div>
+    </div>
+  <% end -%>
+</div>

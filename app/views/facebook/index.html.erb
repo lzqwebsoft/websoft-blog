@@ -1,0 +1,24 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'facebook' %>
+<%= javascript_include_tag 'facebook' %>
+<% end -%>
+<% html_title "相册管理" -%>
+
+<div class="bigViewDiv" style="min-height: 650px;">
+  <%= render_flash_messages %>
+<div id="upload_title_div">
+    我的相册
+    <% if User.current -%>
+    <label><a href="#" class="add_icon" onclick="showCreateTypeDialog('<%= url_for :controller=>:facebook, :action=>:creat_type %>'); return false;">新建相册</a></label>
+    <div id="upload_image_div" >
+       <%= link_to "上传照片", nil, :onclick=>"showUploadWindow('#{url_for :controller=>"facebook", :action=>"upload_files"}','#{@image_type_value.join(",")}','#{@image_type_text.join(",")}'); return false;" %>
+    </div>
+    <% end -%>
+</div>
+<div id="image_show_div">
+  <%= render :partial=>"type_list" %>
+</div>
+<div id="dialogMask" class="ke-dialog-mask">
+  &nbsp;
+</div>
+</div>

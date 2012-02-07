@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+h2 {
+    border-bottom: 1px solid #BBBBBB;
+    color: #444444;
+    font-size: 20px;
+    margin: 0 0 10px;
+    padding: 2px 10px 1px 0;
+}
+.box {
+	background-color: #F6F6F6;
+    border: 1px solid #E4E4E4;
+    color: #505050;
+    line-height: 1.5em;
+    margin-bottom: 10px;
+    padding: 6px;
+	font-size: 12px;
+	font-family: Verdana,sans-serif;
+}
+.tabular p {
+    clear: left;
+    height: 1%;
+    margin: 0;
+    padding: 5px 0 8px 180px;
+}
+.tabular label {
+	letter-spacing: 2px;
+    float: left;
+    font-weight: bold;
+    margin-left: -175px;
+    text-align: right;
+    width: 175px;
+}
+#loginname, #name, #email, #question, #answer{
+	width: 60%;
+}
+.box input {
+	margin-bottom: 1px;
+    margin-top: 1px;
+    vertical-align: middle;
+}
+.required {
+    color: #BB0000;
+}
+.contextual {
+    float: right;
+    font-size: 0.9em;
+    line-height: 1.4em;
+    margin-top: 5px;
+    padding-left: 10px;
+    white-space: nowrap;
+}

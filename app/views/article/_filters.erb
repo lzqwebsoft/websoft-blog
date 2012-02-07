@@ -1,0 +1,102 @@
+<script type="text/javascript">
+//<![CDATA[
+function add_filter() {
+    select = $('add_filter_select');      //得到id为add_filter_select的选项框的对象
+    field = select.value                  //得到add_filter_select选项的value即为field的name
+    Element.show('tr_' +  field);         //显示那个过滤组件
+    check_box = $('cb_' + field);
+    check_box.checked = true;             //复选框被选中
+    toggle_filter(field);
+    select.selectedIndex = 0;
+    //如果将增加过滤组件的这个已选选项设为灰色不可再用
+    for (i=0; i<select.options.length; i++) {
+        if (select.options[i].value == field) {
+            select.options[i].disabled = true;
+        }
+    }
+}
+
+//如果过滤组件它的复选框选中了，则显示其的过滤条件与结果集，如果未选中则将其隐藏
+function toggle_filter(field) {
+    check_box = $('cb_' + field);
+
+    if (check_box.checked) {
+        Element.show("operators_" + field);
+        Element.show("div_values_"+field);
+        Element.show("values_" + field);
+	Form.Element.enable("operators_" + field);
+        Form.Element.enable("values_" + field);
+        check_operators(field);
+    } else {
+        Element.hide("operators_" + field);
+        Element.hide("values_"+field);
+        Element.hide("div_values_"+field);
+        Form.Element.disable("operators_" + field);
+        Form.Element.disable("values_" + field);
+  }
+}
+
+//设置下拉列表是否为多选的情况
+function toggle_multi_select(field) {
+    select = $('values_' + field);
+    if (select.multiple == true) {
+        select.multiple = false;
+    } else {
+        select.multiple = true;
+    }
+}
+
+//检查当操作符改变时是否显示右过的用户输入值
+function check_operators(field){
+  select = $('operators_' + field);
+  //当操作符为"本周"，"今天","昨天"时则隐藏values_field
+  switch(select.value){
+    case "w":
+    case "t":
+    case "y":
+      Element.hide("values_"+field);
+      break;
+    default:
+      Element.show("values_"+field);
+      break;
+  }
+}
+//]]>
+</script>
+<table width="100%">
+  <tr>
+     <td>
+        <table>
+           <% article_query.available_filters.sort{ |a, b| a[1][:order]<=>b[1][:order] }.each do |query|-%>
+           <% field=query[0]; option=query[1] -%>
+           <tr class="filter" <%= 'style="display: none;"'  unless article_query.has_filter?(field) %> id="tr_<%= field %>">
+              <td style="width:100px;">
+                <%= check_box_tag 'f[]', field.to_s, article_query.has_filter?(field), :id=>"cb_#{field}", :onclick=>"toggle_filter('#{field}')" %>
+                 <label><%= article_query.filter_name[field]%>:</label>
+              </td>
+              <td style="width: 100px;">
+                <%= select_tag "op[#{field.to_s}]", options_for_select(operators_for_select(option[:type]), article_query.operator_for(field)), :id=>"operators_#{field}", :onchange=>"check_operators('#{field}')"%>
+              </td>
+              <td style="width: 100px;">
+               <div id="div_values_<%= field %>" style="display:none;">
+                <% case option[:type]
+                when :date_list,:contain_list %>
+                  <%= text_field_tag "v[#{field}][]", "", :id=>"values_#{field}" %>
+                <% when :equest_list %>
+                  <%= select_tag "v[#{field}][]", options_for_select(option[:value], article_query.value_for(field)), :id=>"values_#{field}" %>
+                  <%= link_to_function image_tag('bullet_toggle_plus.png', :style=>'border:0 none #FFF;'), "toggle_multi_select('#{field}');", :style => "vertical-align: bottom;" %>
+                <% end -%>
+               </div>
+              </td>
+              <script type="text/javascript">toggle_filter("<%=field %>");</script>
+           </tr>
+           <% end -%>
+        </table>
+     </td>
+     <td class="add-filter">
+         <label for="add_filter_select">增加过滤器</label>:
+         <%= select_tag "add_filter_select", options_for_select([""]+article_query.available_filters.collect{ |query| unless article_query.has_filter?(query[0]) then [article_query.filter_name[query[0]], query[0]] end}.compact),
+           {:class=>"select-small", :id=>"add_filter_select", :onchange=>"add_filter();" }%>
+     </td>
+  </tr>
+</table>

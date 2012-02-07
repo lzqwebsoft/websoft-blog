@@ -1,0 +1,183 @@
+/*这个为标题栏*/
+#info_top_div {
+	padding: 5px 10px;
+	border-bottom: #888 1px solid;
+	overflow: hidden;
+}
+#info_title {
+	float: left;
+	font:"Verdana, Geneva, sans-serif";
+	font-size: 18px;
+	font-weight: bold;
+}
+#edit_info_button {
+	float: right;
+	font-size: 12px;
+}
+#edit_info_button a, .custom_button, .custom_button:focus, .custom_button:hover   {
+	text-decoration: none;
+	background-color: #EEE;
+	color: #000;
+	padding: 3px;
+	border-width: 1px;
+	border-style: solid;
+	border-bottom-color: #AAA;
+	border-right-color: #AAA;
+	border-left-color: #DDD;
+	border-top-color: #DDD;
+}
+#edit_info_button a:active, .custom_button:active {
+	color:#AAA;
+	border-bottom-color: #DDD;
+	border-right-color: #DDD;
+	border-left-color: #AAA;
+	border-top-color: #AAA;
+}
+h4{
+	font: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	border-bottom: #888 1px solid;
+	padding: 5px;
+	margin: 5px;
+}
+/*资料信息*/
+.info_main_content{
+	padding: 5px;
+}
+.info_main_content p{
+	border-bottom: 1px #BBB dotted;
+	padding: 5px;
+}
+.info_main_content input, .info_main_content select {
+    padding: 0px;
+    margin: 0;
+}
+/*头像*/
+#head_image_div {
+	padding: 0 20px;
+	float: right;
+	position: relative;
+	top: -270px;
+	background-color: #FFF;
+	
+}
+#head_image_div dl {
+	text-align: center;
+}
+#head_image_div dl dd{
+	width: 119px;
+	height: 115px;
+	padding-top: 12px;
+	margin: 0;
+	background-image: url(../images/head_image.png);
+	background-repeat: no-repeat;
+	background-position: 0;
+}
+#head_image_div dl dt a{
+	font-size: 13px;
+	text-decoration: none;
+}
+#head_image_div dl dt a:hover{
+	text-decoration: underline;
+}
+/*博客签名档*/
+#blog_info p span textarea {
+	width: 300px;
+	height: 30px;
+	overflow-y: auto;
+	resize: none;
+}
+#blog_info p label{
+	vertical-align: top;
+}
+#edit_submit_div input {
+	margin-right: 20px;
+}
+/*编辑图片的对话框的选项卡*/
+.tab-navi {
+    border-bottom: 1px solid #A0A0A0;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    width: 98%;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.tab-navi ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.tab-navi li {
+    background-color: #E0E0E0;
+    border: 1px solid #A0A0A0;
+    color: #555555;
+    cursor: pointer;
+    float: left;
+    line-height: 25px;
+    margin: 0 2px -1px 0;
+    padding: 0 20px;
+    position: relative;
+    text-align: center;
+}
+.tab-navi li:hover {
+    background-color: #F0F0EE;
+    color: #000000;
+}
+.tab-navi li.selected {
+    background-color: #F0F0EE;
+    border-bottom: 1px solid #F0F0EE;
+    color: #000000;
+    cursor: default;
+}
+/*上传照片的选项卡体*/
+#local_upload_div {
+	height: 267px;
+	text-align: center;
+}
+#local_upload_div input {
+	margin-top: 80px;
+}
+#photo_div{
+	background-color: #FFF;
+	height: 230px;
+	overflow-x: hidden;
+    overflow-y: scroll;
+	margin-bottom: 5px;
+}
+/*呈现图片的列表*/
+#photo_list {
+	list-style-type: none;
+	margin: 0;
+	padding: 6px;
+}
+#photo_list li {
+	float: left;
+    height: 66px;
+    margin: 0 4px 6px 0;
+    text-align: center;
+    width: 66px;
+	list-style-type: none;
+}
+#photo_list li a {
+	border: 1px solid #D6D6CE;
+    display: block;
+    height: 60px;
+    margin: 0 auto;
+    padding: 1px;
+    width: 60px;
+}
+#photo_list li a:hover, #photo_list li a:focus {
+	border: 1px solid #FC3;
+}
+.image-selected {
+	border: 1px solid #FC3;
+}
+#photo_list li a img {
+    height: 60px;
+    width: 60px;
+	border: 0 none;
+}

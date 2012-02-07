@@ -1,0 +1,18 @@
+<div id="notice_query_form_content" class="hide-when-print">
+  <fieldset id="filters" class="collapsible">
+    <legend onclick="toggleFieldset(this);">过滤器</legend>
+    <div style="display: block;">
+      <% form_remote_tag(:url =>{:action=>"filter_article"}, :html=>{:id=>"filter_form"}) do %>
+       <%= render :partial => 'article/filters', :locals => {:article_query => @article_query} %>
+      <% end %>
+    </div>
+  </fieldset>
+  <p class="buttons hide-when-print">
+     <%= link_to "应用", {:controller=>'article', :action=>"filter_article"}, :class=>"icon icon-checked",
+       :onclick=>"return report_filter_condictions('filter_form', '#{url_for :controller=>"article", :action=>"filter_article"}');" %>
+     <%= link_to "清除", {:controller=>'article', :action=>"index"}, :class=>"icon icon-reload" %>
+  </p>
+</div>
+<div class="autoscroll" id="aritcles_list_div">
+  <%= render :partial=> 'article/article_table', :locals=>{:articles=>@articles} %>
+</div>

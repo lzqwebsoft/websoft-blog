@@ -1,0 +1,11 @@
+<dl>
+   <dd>
+     <img src="<%= url_for :controller=>'image', :action=>'show', :id=>(@blog_author.head_image||3) %>" width="105" height="105" />
+   </dd>
+   <% if User.current -%>
+   <dt>
+      <a href="#" onclick="showEditHeadImage('<%= url_for :controller=>'about_me', :action=>'update_head', :id=>@blog_author %>',
+        '<%= url_for :action=>'change_type' %>','<%= @type_values.join(",") %>', '<%= @type_texts.join(",") %>'); return false;">修改头像</a>
+   </dt>
+   <% end -%>
+</dl>

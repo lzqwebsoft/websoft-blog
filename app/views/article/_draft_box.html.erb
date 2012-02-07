@@ -1,0 +1,29 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'draft _box' %>
+<%  end -%>
+
+<p id="group_title_braff">草稿箱&nbsp<%if @drafts -%>(<%= @drafts.length  %>)<% else %>(0)<%end -%></p>
+<% if @drafts&&!@drafts.empty? -%>
+<table class="list issues">
+   <thead>
+      <tr>
+         <th>标题</th>
+         <th width="100">类型</th>
+         <th width="100">保存时间</th>
+         <th width="100">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <%for article in @drafts -%>
+      <tr class="hascontextmenu odd article">
+         <td class="title"><%= link_to article.title, :controller=>"article", :action=>"show", :id=>article %></td>
+         <td class="type"><%= article.article_type.name %></td>
+         <td class="updated_on"><%= article.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+         <td class="operate"><%= link_to "编辑", :controller=>"article" , :action=>"update", :id=>article%>｜<%= link_to_remote "删除", :url=>{:action=>:delete_draft, :id=>article}, :confirm=>"您确定要删除此草稿？"%></td>
+      </tr>
+      <% end -%>
+   </tbody>
+</table>
+<% else -%>
+<p class="nodata">草稿箱中暂无文章.</p>
+<% end -%>

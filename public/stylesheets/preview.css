@@ -1,0 +1,85 @@
+.ke-dialog-shadow {
+    border: 1px solid #A0A0A0;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 16px #A0A0A0;
+}
+.ke-dialog {
+    background-color: #F0F0EE;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+.ke-dialog-header {
+    background-color: #F0F0EE;
+    border: 0 none;
+    color: #222222;
+    cursor: move;
+    font: bold 14px/1 "sans serif",tahoma,verdana,helvetica;
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+}
+.ke-dialog-icon-close {
+    background-image: url(../javascripts/kindeditor/skins/default/default.gif);
+    background-position: 0 -688px;
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 16px;
+}
+.ke-dialog-body {
+    font: 12px/1.5 "sans serif",tahoma,verdana,helvetica;
+    overflow: hidden;
+    text-align: left;
+}
+.ke-dialog-body .ke-textarea {
+    border-color: #848484 #E0E0E0 #E0E0E0 #848484;
+    border-style: solid;
+    border-width: 1px;
+    display: block;
+    font-family: "sans serif",tahoma,verdana,helvetica;
+    font-size: 12px;
+    height: 260px;
+    width: 408px;
+}
+.ke-dialog-footer {
+    font: 12px/1 "sans serif",tahoma,verdana,helvetica;
+    padding: 0 0 5px;
+    text-align: right;
+}
+.ke-button-outer {
+    background-position: 0 0;
+    display: inline-block;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+}
+.ke-button{
+    border: 0 none;
+    color: #333333;
+    font-family: "sans serif",tahoma,verdana,helvetica;
+    font-size: 12px;
+    font-weight: bold;
+    left: 2px;
+    margin: 0;
+    padding: 0 12px;
+    text-decoration: none;
+}
+.ke-button-common {
+    background: url(../javascripts/kindeditor/skins/default/bg.gif) no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    
+    
+}
+.ke-dialog-no {
+    margin: 5px 10px 5px 5px;
+}
+

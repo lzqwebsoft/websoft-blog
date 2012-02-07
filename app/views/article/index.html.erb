@@ -1,0 +1,10 @@
+<% html_title "文章管理" %>
+<div class="sidebar" id="article_sidebar_div">
+  <%= render  :partial=>"sidebar" %>
+</div>
+<div id="content">
+  <% if  @tabs&&@tabs.empty? -%>
+  <%= content_tag "h2", "我的文章", :style=>"margin: 0 0, 5px, 0; border-bottom: 1px solid #DDDDDD; padding-bottom: 5px;" %>
+  <% end -%>
+  <%= render_tabs  @tabs%>
+</div>

@@ -1,0 +1,70 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'read_aritcle' %>
+<%= javascript_include_tag 'read_aritcle' %>
+<%= javascript_include_tag 'kindeditor/kindeditor' %>
+<%  end -%>
+<% html_title '留言板'-%>
+<div class="bigViewDiv">
+<h2 style="margin-bottom:0px;">偶来一句</h2>
+<hr />
+<div class="story">
+   <div class="storyTitle">评论</div>
+   <div class="storytext">
+      <script type="text/javascript">
+        function after_submit(){
+          document.getElementById('message_name').value="";
+          document.getElementById('message[content]').value="";
+          KE.html('message[content]', "");
+        }
+      </script>
+      <% form_remote_tag :url=>{:action=>'create'}, :update=>"message_show_div",
+                         :before=>"if(KE.isEmpty('message[content]')){alert('回复的内容不能为空，起码您要来两句吧！！O(∩_∩)O'); return false;};KE.sync('message[content]')",
+                         :after=>"after_submit();" do %>
+         <table width="630px">
+             <tr>
+                <td width="40px">昵称: </td>
+                <td><%= text_field :message, :name, :size=>60 %>&nbsp;&nbsp;(限50字以内)</td>
+             </tr>
+             <tr>
+                <td>内容: </td>
+                <td>
+                  <%=  edit_textarea_for "message[content]", :height=> 100, :skinType=>"'custom'", :minHeight=>100 , :width=>500,
+                                         :items => "['source','|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold', 'italic','underline',
+                                                   'emoticons','subscript','superscript', 'strikethrough','|', 'removeformat', 'selectall', 'about']"
+                  %>
+                </td>
+             </tr>
+             <tr>
+                <td>&nbsp;</td>
+                <td>
+                   <%= submit_tag "发表" %>
+                </td>
+             </tr>
+         </table>
+      <% end %>
+   </div>
+</div>
+<h2 style="margin-bottom:0px;">留言板</h2>
+<hr />
+<div id="message_show_div">
+  <%= render :partial=>"message_list" %>
+</div>
+
+<% if @pages>1 -%>
+<hr />
+<div class="pageCount">
+    <ul>
+       <%if @current_page!=0 -%>
+       <li><%= link_to "上一页", :action=>"index", :page=>(@current_page>0) ? (@current_page-1) : @current_page %></li>
+       <% end -%>
+       <% @pages.times do |i| -%>
+       <li><%= link_to "#{i+1}", {:controller=>"message", :action=>"index", :page=>i},
+                                  :class=> (@current_page==i) ? "selected" : ""%></li>
+       <% end -%>
+       <%if (@current_page+1)<@pages -%>
+       <li><%= link_to "下一页", :action=>"index", :page=>(@current_page<@pages) ? @current_page+1 : @current_page %></li>
+       <% end -%>
+    </ul>
+</div>
+<% end -%>
+</div>

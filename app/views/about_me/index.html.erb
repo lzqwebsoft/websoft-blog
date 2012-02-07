@@ -1,0 +1,74 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'about_me' %>
+<%= stylesheet_link_tag 'ke_dialog' %>
+<%= javascript_include_tag 'ke_dialog' %>
+<%= javascript_include_tag 'about_me' %>
+<%  end -%>
+<% html_title '关于我'-%>
+<div class="bigViewDiv" style="overflow: hidden;">
+  <div id="info_top_div">
+     <div id="info_title">
+         [<%= @blog_author.name %>]个人资料
+     </div>
+    <% if User.current -%>
+     <div id="edit_info_button">
+         <a href="#" onclick="editBaseInfo(); editBlogInfo(); return false;">编辑个人资料</a>
+     </div>
+    <% end -%>
+  </div>
+  <div id="info_content_div">
+      <form action="<%= url_for :controller=>'about_me', :action=>"update", :id=>@blog_author %>" method="post" id="base_info_form">
+      <div id="base_info_div">
+         <h4>基本资料</h4>
+         <div id="base_info" class="info_main_content">
+           <p>
+              <label>昵称：</label>
+              <span><%= @blog_author.name %></span>
+           </p>
+           <p>
+              <label>年龄：</label>
+              <span><%= @blog_author.user_info.age%></span>
+           </p>
+           <p>
+              <label>性别：</label>
+              <span><%=  @blog_author.sex==1 ? "男" : "女"  %></span>
+           </p>
+           <p>
+              <label>星座：</label>
+              <span><%= @blog_author.user_info.constellation %></span>
+           </p>
+           <p>
+              <label>职业：</label>
+              <span><%= @blog_author.user_info.profession %></span>
+           </p>
+           <p>
+             <label>籍贯：</label>
+             <span><%= @blog_author.user_info.hometown %></span>
+           </p>
+           <p>
+              <label>E_Mail：</label>
+              <span><%= @blog_author.email %></span>
+           </p>
+         </div>
+         <div id="head_image_div">
+            <%= render :partial=>"head_image" %>
+         </div>
+      </div>
+      <div id="blog_info_div">
+         <h4>博客信息</h4>
+         <div id="blog_info" class="info_main_content">
+            <p>
+               <label>空间说明：</label>
+               <span style="padding-left: 5px;"><%= @blog_author.user_info.zone_message %></span>
+            </p>
+            <p>
+               <label style="letter-spacing: 5px;">签名档：</label>
+               <span><%= @blog_author.user_info.signature %></span>
+            </p>
+         </div>
+      </div>
+      <div id="edit_submit_div" style="display:none;">
+      </div>
+      </form>
+  </div>
+</div>

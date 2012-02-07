@@ -1,0 +1,15 @@
+<% @images.each do |image| %>
+<dl>
+  <dd>
+     <a href="<%= url_for :controller=>:image, :action=>:show, :id=>image %>" rel="lightbox[roadtrip]" title="<%= image.description %>">
+       <img src="<%= url_for :controller=>:image, :action=>:show, :id=>image %>" width="140" height="104" alt="<%= image.filename %>" title="<%= image.filename %>" />
+     </a>
+  </dd>
+  <dt>
+    <a href="<%= url_for :controller=>:image, :action=>:show, :id=>image %>" rel="lightbox"><%= truncate(image.filename, :length=>20) %></a><br />
+    <% if User.current -%>
+    <%= link_to "设为封面", :action=>:set_image_title, :id=>image %>|<a href="#" onclick="ajax_request('<%= url_for :action=>:remove_image, :id=>image %>'); return false;">删除</a>
+    <% end -%>
+  </dt>
+</dl>
+<% end if @images&&!@images.empty? %>

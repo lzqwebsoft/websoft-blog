@@ -1,0 +1,31 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'facebook.css' %>
+<%= stylesheet_link_tag 'lightbox.css' %>
+<%= javascript_include_tag 'view_image' %>
+<%= javascript_include_tag 'facebook' %>
+<%= javascript_include_tag 'lightbox/js/prototype.js' %>
+<%= javascript_include_tag 'lightbox/js/scriptaculous.js?load=effects,builder' %>
+<%= javascript_include_tag 'lightbox/js/lightbox.js' %>
+<%  end -%>
+<% html_title "相册管理" -%>
+<div class="bigViewDiv">
+  <div id="upload_title_div">[<%= @image_type.name %>]浏览</div>
+  <div id="image_show_div" style="border-bottom: 1px solid #BBBBBB; margin-bottom: 5px; min-height: 500px;">
+    <% if @images&& !@images.empty? -%>
+    <%= render :partial=>"image_list" %>
+    <% else -%>
+    <p class="nodata">暂无照片.</p>
+    <% end -%>
+  </div>
+  <div class="pageCount">
+    <ul>
+       <li><a href="#">1</a></li>
+       <li><a href="#" class="selected">2</a></li>
+       <li><a href="#">3</a></li>
+       <li><a href="#">下一页</a></li>
+    </ul>
+  </div>
+  <div id="dialogMask" class="ke-dialog-mask">
+  &nbsp;
+  </div>
+</div>

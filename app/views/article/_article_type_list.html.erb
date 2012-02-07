@@ -1,0 +1,21 @@
+<div id="article_type_default_item">
+   <ul>
+      <li class="article_type_name_item"><%= @first_type.name %>(此分类不支持编辑或删除)</li>
+   </ul>
+</div>
+<%for article_type in @article_types -%>
+  <% next  if article_type.id==@first_type.id -%>
+  <div class="article_type_item">
+   <ul>
+      <li class="article_type_name_item"><%= article_type.name %></li>
+      <li class="article_type_item_delete">
+          <%= link_to "删除", {:controller=>"article", :action=>"delete_type", :id=>article_type},
+            :onclick=>"return delete_article_type('#{url_for(:action=>"delete_type", :id=>article_type)}');" %>
+      </li>
+      <li class="article_type_item_edit">
+         <%= link_to "编辑", "#", :onclick=>"edit_article_type(this, '#{url_for(:controller=>"article", :action=>"delete_type", :id=>article_type)}',
+                     '#{url_for :controller=>"article", :action=>"update_type", :id=>article_type}'); return false;" %>
+      </li>
+   </ul>
+ </div>
+<% end -%>

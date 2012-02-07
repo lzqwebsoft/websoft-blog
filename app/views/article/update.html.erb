@@ -1,0 +1,35 @@
+<% html_title "编辑文章" %>
+<div class="sidebar" id="article_sidebar_div">
+  <%= render  :partial=>"sidebar" %>
+</div>
+<div id="content">
+  <% form_for :article, :url=>{:action=>:update, :id=>@article} do |f|%>
+  <table cellspacing="10">
+    <tr>
+      <td width="50">类型: </td>
+      <td>
+        <%= f.select :article_type_id, @article_types.collect { |article_type| [article_type.name, article_type.id] } %>
+      </td>
+    </tr>
+    <tr>
+      <td>标题: </td>
+      <td><%= f.text_field :title, :size=>100 %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%=  edit_textarea_for "article[content]", :height=> 450, :width=>700, 
+          :imageUploadJson=>url_for(:controller=>"image", :action=>"upload"),
+          :fileManagerJson=>url_for(:controller=>"image", :action=>"show_image_list"),
+          :values=>(if @article && @article.content then @article.content else nil end ) %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= submit_tag "发表" %>
+        <input type="button" value="预览" onclick="showWindows('article[content]')" />
+      </td>
+    </tr>
+  </table>
+ <% end %>
+<%= preview_text_for%>
+</div>

@@ -1,0 +1,37 @@
+<% unless @article.comments.blank? -%>
+  <div class="story" id="all_comments_div">
+      <div class="storyTitle">评论</div>
+      <div class="storytext">
+          <% for comment in @article.comments -%>
+            <div class="commentText" id="commentText_<%= comment.id %>">
+                <div class="commentFrom">
+                    <%= comment.author %>&nbsp;<font color="#000000">评论于：</font><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>
+                    <div class="operateCommentDiv" >
+                      [<a href="#" onclick="reportComment(this, '<%= url_for :action=>"create_subcomment", :controller=>"article", :id=>comment %>'); return false;">回复</a>]&nbsp;
+                      <% if User.current -%>
+                      [<%= link_to_remote "删除", :url=>{:action=>:delete_comment, :id=>comment}, :confirm=>"你确定要删除此评论？", :update=>"commentsModel" %>]</div>
+                      <% end -%>
+                </div>
+                <div class="commentContent">
+                  <%= comment.content %>
+                </div>
+                <% all_childs= comment.child_comments -%>
+                <div id="subcomments_<%= comment.id %>">
+                <% if all_childs&&!all_childs.empty? -%>
+                    <%= render :partial=>"repcomment", :collection=>all_childs %>
+                <% end -%>
+                </div>
+                <div class="repcomment">
+                  <form action="<%= url_for(:action=>'create_subcomment', :controller=>'article', :id=>comment) %>" method="post"
+                        onsubmit="return validateSubComments('提交失败：评论的内容不能为空。')&&resport_report_subcomment(this, '<%= url_for(:action=>'create_subcomment', :controller=>'article', :id=>comment) %>');">
+                    <input type="text" size="60" onfocus="reportCommentFocus(this)" value="我也来一句..."/>
+                  </form>
+               </div>
+            </div>
+          <% end -%>
+      </div>
+      <div class="pageCount">
+         1,2,3.....
+      </div>
+  </div>
+<% end -%>

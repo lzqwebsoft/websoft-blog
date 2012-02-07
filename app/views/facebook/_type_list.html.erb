@@ -1,0 +1,19 @@
+<% @image_types.each do |image_type| %>
+  <dl>
+    <dd>
+     <% view_type=image_type.show_image_permission -%>
+     <a href="<%= url_for :action=>:show_all, :id=>image_type %>"
+        <% if view_type==2 -%><%= "onclick=\"ajax_request('#{url_for :action=>:access_question, :id=>image_type}'); return false;\"" %><% end -%> >
+       <img  src="<%= url_for :controller=>"image", :action=>"show", :id=>image_type.find_title_image %>" width="140" height="104" alt="" />
+     </a>
+    </dd>
+    <dt>
+      <a href="<%= url_for :action=>:show_all, :id=>image_type %>"
+         <% if view_type==2 -%><%= "onclick=\"ajax_request('#{url_for :action=>:access_question, :id=>image_type}'); return false;\"" %><% end -%>><%= image_type.name %></a>(<%= image_type.images.length %>张)<br />
+      <label>更新: <%= image_type.updated_at.strftime("%Y-%m-%d %H:%M") %></label><br />
+      <% if User.current -%>
+      <a href="#" onclick="ajax_request('<%= url_for :action=>:update_type, :id=>image_type %>'); return false;">编辑</a><% if image_type.id!=1&&image_type.id!=2 %>|<a href="#" onclick="ajax_request('<%= url_for :action=>:remove_type, :id=>image_type %>'); return false;">删除</a><% end -%>
+      <% end -%>
+    </dt>
+  </dl>
+<% end if @image_types&& !@image_types.empty? %>

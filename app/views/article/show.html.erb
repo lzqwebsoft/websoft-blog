@@ -1,0 +1,106 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'read_aritcle' %>
+<%= stylesheet_link_tag "sh/styles/shCoreDefault.css" %>
+<%= stylesheet_link_tag "sh/styles/shThemeDefault.css" %>
+<%= stylesheet_link_tag "sh/styles/shCore.css" %>
+<%= javascript_include_tag 'read_aritcle' %>
+<%= javascript_include_tag 'kindeditor/kindeditor' %>
+<%= javascript_include_tag 'sh/scripts/shCore.js' %>
+<%= javascript_include_tag 'sh/scripts/shAutoloader'%>
+<%  end -%>
+<% html_title @article.title -%>
+<div class="bigViewDiv">
+<div class="story">
+   <div class="storyTitle"><%= @article.title %></div>
+   <div class="storytext" style="font-size:13px;" >
+     <h2 style="font-size:18px; font-weight: bold; text-align: center;">
+       <%= @article.title %>
+     </h2>
+     <%= @article.content %>
+     <p class="storyposted"><%= @article.author.name %>&nbsp;&nbsp;发表于::<%= @article.created_at.strftime("%Y-%m-%d %H:%M")%></p>
+  </div>
+<script type="text/javascript">
+  function path()
+  {
+    var args = arguments, result = [];
+
+    for(var i = 0; i < args.length; i++)
+        result.push(args[i].replace('@', '../../javascripts/sh/scripts/'));
+
+    return result
+  };
+  SyntaxHighlighter.autoloader.apply(null, path(
+    'applescript            @shBrushAppleScript.js',
+    'actionscript3 as3      @shBrushAS3.js',
+    'bash shell             @shBrushBash.js',
+    'coldfusion cf          @shBrushColdFusion.js',
+    'cpp c                  @shBrushCpp.js',
+    'c# c-sharp csharp      @shBrushCSharp.js',
+    'css                    @shBrushCss.js',
+    'delphi pascal          @shBrushDelphi.js',
+    'diff patch pas         @shBrushDiff.js',
+    'erl erlang             @shBrushErlang.js',
+    'groovy                 @shBrushGroovy.js',
+    'java                   @shBrushJava.js',
+    'jfx javafx             @shBrushJavaFX.js',
+    'js jscript javascript  @shBrushJScript.js',
+    'perl pl                @shBrushPerl.js',
+    'php                    @shBrushPhp.js',
+    'text plain             @shBrushPlain.js',
+    'py python              @shBrushPython.js',
+    'ruby rails ror rb      @shBrushRuby.js',
+    'sass scss              @shBrushSass.js',
+    'scala                  @shBrushScala.js',
+    'sql                    @shBrushSql.js',
+    'vb vbnet               @shBrushVb.js',
+    'xml xhtml xslt html    @shBrushXml.js'
+  ));
+  SyntaxHighlighter.all();
+</script>
+</div>
+
+<div id="commentsModel">
+  <%= render :partial=>"comments" %>
+</div>
+
+<% if @article && @article.status==1 -%>
+<div class="story">
+   <div class="storyTitle">评论</div>
+   <div class="storytext">
+      <script type="text/javascript">
+        function after_submit(){
+          document.getElementById('comment_name').value="";
+          document.getElementById('comment[content]').value="";
+          KE.html('comment[content]', "");
+        }
+      </script>
+      <% form_remote_tag :url=>{:action=>'create_comment'}, :update=>"commentsModel", 
+                         :before=>"if(KE.isEmpty('comment[content]')){alert('评论的内容不能为空！！'); return false;};KE.sync('comment[content]')",
+                         :after=>"after_submit();" do %>
+         <input type="hidden" name="id" value="<%= @article.id %>" />
+         <table width="630px">
+             <tr>
+                <td width="40px">昵称: </td>
+                <td><%= text_field :comment, :name, :size=>60 %>&nbsp;&nbsp;(限50字以内)</td>
+             </tr>
+             <tr>
+                <td>内容: </td>
+                <td>
+                  <%=  edit_textarea_for "comment[content]", :height=> 100, :skinType=>"'custom'", :minHeight=>100 , :width=>500,
+                                         :items => "['source','|', 'fontname', 'fontsize', '|', 'textcolor', 'bgcolor', 'bold', 'italic','underline',
+                                                   'emoticons','subscript','superscript', 'strikethrough','|', 'removeformat', 'selectall', 'about']"
+                  %>
+                </td>
+             </tr>
+             <tr>
+                <td>&nbsp;</td>
+                <td>
+                   <%= submit_tag "发表" %>
+                </td>
+             </tr>
+         </table>
+      <% end %>
+   </div>
+</div>
+<% end -%>
+</div>

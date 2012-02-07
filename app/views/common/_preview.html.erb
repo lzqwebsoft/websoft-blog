@@ -1,0 +1,20 @@
+<div id="preViewDialog" class="ke-dialog-default ke-dialog ke-dialog-shadow"
+     style="display: none; width: 750px; position: fixed; z-index: 811213; left: 0; top: 0;">
+   <div class="ke-dialog-header" onmousedown="drag_start(event, 'preViewDialog')">
+       预览<span class="ke-dialog-icon-close" title="关闭" onclick="closeWindows()"></span>
+   </div>
+   <div class="ke-dialog-body">
+     <div style="padding:10px 15px;">
+       <div id="keTextArea" class="ke-textarea" style="width:708px;height:400px;">
+       </div>
+     </div>
+   </div>
+   <div class="ke-dialog-footer">
+      <span class="ke-button-common ke-button-outer ke-dialog-no" title="关闭">
+         <input class="ke-button-common ke-button" type="button" value="关闭" onclick="closeWindows()" style="background-position: right 0" />
+      </span>
+   </div>
+</div>
+<div id="dialogMask" class="ke-dialog-mask"
+     style="display: none; filter:Alpha(Opacity=30); opacity:0.3;; background-color: #FFF;position: absolute;left: 0pt;top: 0pt;z-index: 811212;">&nbsp;
+</div>

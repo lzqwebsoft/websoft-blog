@@ -1,0 +1,32 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'login' %>
+<%  end -%>
+<% html_title '用户登录' %>
+<div class="bigViewDiv">
+  <div id="login-form-div">
+    <%= render_flash_messages %>
+  <form action="#" method="post">
+    <% if params[:bark_url]&&!params[:back_url].empty? -%>
+    <input type="hidden" value="<%= params[:back_url] %>" name="back_url" />
+    <% end -%>
+    <table>
+       <tr>
+          <td align="right"><label for="username">登录名:</label></td>
+          <td align="left"><input type="text" id="username" name="username" /></td>
+       </tr>
+       <tr>
+          <td align="right"><label for="password">密码:</label></td>
+          <td align="left"><input type="password" id="password" name="password" /></td>
+       </tr>
+       <tr>
+          <td></td>
+          <td></td>
+       </tr>
+       <tr>
+          <td align="left"><a href="#">忘记密码</a></td>
+          <td align="right"><input type="submit" value="登录>>" /></td>
+       </tr>
+    </table>
+  </form>
+ </div>
+</div>

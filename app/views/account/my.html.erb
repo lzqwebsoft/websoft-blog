@@ -1,0 +1,32 @@
+<% content_for :header_tags do -%>
+<%= stylesheet_link_tag 'account' %>
+<%  end -%>
+<% html_title '我的帐户' %>
+<div class="bigViewDiv">
+  <%= render_flash_messages %>
+  <div class="contextual">
+    <%= link_to "修改密码", :controller=>"account", :action=>"password" %>
+  </div>
+  <h2>帐户信息</h2>
+  <% form_for(:user, @user, :url=>{:controller=>"account", :action=>"my" }, :html=>{ :class=>"tabular" }) do |f| %>
+  <div class="box">
+     <p>
+       <label>昵称<span class="required">*</span></label>
+       <%= f.text_field :name, :required => true, :id=>"name"%>
+     </p>
+     <p>
+       <label>邮箱<span class="required">*</span></label>
+       <%= f.text_field :email, :required=>true, :id=>"email"%>
+     </p>
+     <p>
+       <label>密码问题<span class="required">*</span></label>
+       <%= f.text_field :pwd_question, :required=>true, :id=>"question"%>
+     </p>
+     <p>
+       <label>问题答案<span class="required">*</span></label>
+       <%= f.text_field :pwd_answer, :required=>true, :id=>"answer"%>
+     </p>
+  </div>
+  <%=  submit_tag "应用" %>
+<% end  %>
+</div>

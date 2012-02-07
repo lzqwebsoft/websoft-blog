@@ -1,0 +1,30 @@
+<% if @articles&&!@articles.empty? -%>
+<table class="list issues">
+   <thead>
+      <tr>
+         <th title="根据 '标题' 排序"><a href="#">标题</a></th>
+         <th>&nbsp</th>
+         <th title="根据 '类型' 排序" width="100"><a href="#">类型</a></th>
+         <th title="根据 '更新时间' 排序" width="100"><a href="#">更新时间</a></th>
+         <% if User.current -%><th width="100">操作</th><% end -%>
+      </tr>
+   </thead>
+   <tbody>
+      <%for article in @articles -%>
+      <tr class="hascontextmenu odd article">
+        <td class="title"><%= link_to article.title, :controller=>"article", :action=>"show", :id=>article %></td>
+         <td class="comment_counts">(<%= article.comment_counts %>/42)</td>
+         <td class="type"><%= article.article_type.name %></td>
+         <td class="updated_on"><%= article.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+         <% if User.current -%>
+         <td class="operate">
+           <%= link_to "编辑", :controller=>"article" , :action=>"update", :id=>article%>｜<%= link_to_remote "删除", :url=>{:action=>:delete, :id=>article}, :confirm=>"您确定要删除此文章？" %>
+         </td>
+         <% end -%>
+      </tr>
+      <% end -%>
+   </tbody>
+</table>
+<% else -%>
+<p class="nodata">没有可供显示的数据</p>
+<% end -%>
